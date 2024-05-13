@@ -326,7 +326,7 @@ def upload_file():
         # Upload file to Google Cloud Storage
         blob = bucket.blob(file.filename)
         blob.upload_from_filename(temp_file_path)
-        print("Temp dir",session['temp_dir'])
+        # print("Temp dir",session['temp_dir'])
         print(os.listdir(temp_dir))
         process_result = process_ppts(temp_file_path,temp_dir)
 
