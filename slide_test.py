@@ -83,10 +83,10 @@ def shape_to_html(shape, background_image=None):
 def remove_shapes_and_placeholders(pptx_filename, output_folder,clean_pptx_path):
     pptx_filename=pptx_filename.replace('\\','/')
     clean_pptx_path=clean_pptx_path.replace('\\','/')
-    if pptx_filename[0]=='/':
-        pptx_filename=pptx_filename[1:]
-    if clean_pptx_path[0]=='/':
-        clean_pptx_path=clean_pptx_path[1:]
+    # if pptx_filename[0]=='/':
+    #     pptx_filename=pptx_filename[1:]
+    # if clean_pptx_path[0]=='/':
+    #     clean_pptx_path=clean_pptx_path[1:]
 
     prs = Presentation(pptx_filename)
     for slide in prs.slides:
