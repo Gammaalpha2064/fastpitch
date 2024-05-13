@@ -211,8 +211,11 @@ def invoke_cloud_function(payload_json):
         payload_json = json.dumps(payload_json)
 
         # Send POST request to the Cloud Run service
-        response = requests.post(cloud_run_service_url, headers=headers, data=payload_json)
-        print(response)
+        try:
+            response = requests.post(cloud_run_service_url, headers=headers, data=payload_json)
+            response.raise_for_status()  # Raises an HTTPError for bad responses
+        except requests.exceptions.RequestException as e:
+            print("Error",e)
 
         # Check if the response is successful
         if response.status_code == 200:
@@ -343,7 +346,6 @@ def upload_file():
               "convert_to": "pdf",
               "num_attempts": 2
             }
-
         response = invoke_cloud_function(payload_json)
 
         flash('File uploaded and processing initiated.')
