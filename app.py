@@ -212,6 +212,7 @@ def invoke_cloud_function(payload_json):
 
         # Send POST request to the Cloud Run service
         response = requests.post(cloud_run_service_url, headers=headers, data=payload_json)
+        print(response)
 
         # Check if the response is successful
         if response.status_code == 200:
