@@ -309,7 +309,7 @@ def upload_file():
         temp_dir = tempfile.mkdtemp(dir=os.getcwd() + "/temp")
         session['temp_dir'] = temp_dir
         print("Temp dir",session['temp_dir'])
-        print(os.listdir('/temp'))
+        print(os.listdir(os.getcwd()+'/temp'))
 
         # Check for file in the request
         file = request.files.get('file')
