@@ -321,7 +321,7 @@ function processTableTag(tableElem) {
             const cellStyle = window.getComputedStyle(cell);
             let cellData = {
                 text: cell.innerText.trim(),
-                tagName: elem.tagName.toLowerCase(),
+                tagName: rowElem.tagName.toLowerCase(),
                 style: {
                     color: cellStyle.color,
                     backgroundColor: cellStyle.backgroundColor,
