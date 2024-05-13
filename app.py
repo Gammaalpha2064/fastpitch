@@ -318,7 +318,7 @@ def upload_file():
             return redirect(request.url)
 
         # Save the file to the temporary directory
-        filename = secure_filename(file.filename)
+        filename = file.filename
         temp_file_path = os.path.join(temp_dir, filename)
         file.save(temp_file_path)
 
