@@ -20,6 +20,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__, static_url_path='/static', static_folder='static', template_folder='templates')
 app.config['MAX_CONTENT_PATH'] = 16 * 1024 * 1024  # 16MB limit
+TEMPDIR = os.path.join(app.root_path, 'temp')
 app.secret_key = "yoursecretkeyhere"
 
 # Initialize Google Cloud Storage and Pub/Sub clients
@@ -306,7 +307,7 @@ def upload_file():
         temp_dir = session.pop('temp_dir', None)
         if temp_dir and os.path.isdir(temp_dir) and 'defaulttemp' not in temp_dir:
             shutil.rmtree(temp_dir)
-        temp_dir = tempfile.mkdtemp(dir=os.getcwd() + "/temp")
+        temp_dir = tempfile.mkdtemp(dir=TEMPDIR)
         session['temp_dir'] = temp_dir
         print("Temp dir",session['temp_dir'])
         print(os.listdir(os.getcwd()+'/temp'))
@@ -318,8 +319,9 @@ def upload_file():
             return redirect(request.url)
 
         # Save the file to the temporary directory
-        filename = file.filename
-        temp_file_path = os.path.join(temp_dir, filename)
+        filename = secure_filename(file.filename)
+
+        temp_file_path = os.path.join(TEMPDIR, filename)
         file.save(temp_file_path)
 
         # Upload file to Google Cloud Storage
