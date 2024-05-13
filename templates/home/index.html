@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastPitch</title>
+    <script src="https://kit.fontawesome.com/a486c49cf7.js" crossorigin="anonymous"></script>
+
+    <script src="https://unpkg.com/interactjs/dist/interact.min.js"></script>
+    <script src="{{ url_for('static', filename='home/dragResize.js') }}"></script>
+    <script src="{{ url_for('static', filename='home/dataGather.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='home/style.css') }}">
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <div class="left">
+        <div class="output" >
+                {% for section, content in sections.items() %}
+                    <h1 style=" font-size:xx-large;" class="draggable">{{ section|safe }}</h1>
+                        {% for item in content %}
+                            {% for response in item.responses %}
+                                {{ response|safe }}
+                                <br>
+                            {% endfor %}
+                        {% endfor %}
+                {% endfor %}
+
+
+
+        </div>
+        <div class="lbuttons">
+            <div class="upload-btn-wrapper">
+                <form action="/uploadbulkfiles" method="POST" id="form1" enctype="multipart/form-data">
+                <button class="button"> <i class="fa-solid fa-cloud-arrow-up"></i>  &nbsp; Upload Documents</button>
+                <input type="file" name="files" multiple />
+
+            </form>
+            </div>
+            <div class="upload-btn-wrapper">
+                <form action="/upload" method="POST" id="form2" enctype="multipart/form-data">
+
+                    <input type="file" id="template" name="file" accept=".ppt, .pptx" />
+                <button class="button"> <i class="fa-solid fa-cloud-arrow-up"></i> &nbsp; Upload Template</button>
+                
+            </form>
+            </div>
+        </div>
+    </div>
+    <div class="right">
+        {% for file in files %}
+        {{file|safe}}
+        {% endfor %}
+ 
+        <div class="rbuttons">
+            <div class="upload-btn-wrapper">
+                <button class="button" id="generateppt"> <i class="fa-solid fa-robot"></i> &nbsp; Generate PPT</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+window.onload = function(){
+
+
+var width = window.innerWidth;
+            var height = window.innerHeight;
+
+            fetch('/set_dimensions', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ width: width, height: height })
+            })
+            .then(response => response.text())
+            .then(data => console.log(data))
+            .catch(error => console.error('Error:', error));
+
+
+// Initialize draggable and resizable for existing draggable elements
+setupDraggable('.draggable');
+
+
+
+
+const button = document.getElementById('generateppt');
+
+button.addEventListener('click', () => {
+    // Call collectPageData to gather data from the page
+    const presentationData = collectPageData();
+    console.log(presentationData);
+
+    // Send the collected data to the server
+    sendDataToServer(presentationData);
+});
+
+function sendDataToServer(data) {
+    fetch('/generate_presentation', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => {
+        console.log(response);
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.blob();
+    })
+    .then(blob => {
+        // Create a URL for the blob
+        const url = window.URL.createObjectURL(blob);
+        // Create a link element
+        const a = document.createElement('a');
+        // Set the href attribute of the link to the URL of the blob
+        a.href = url;
+        // Set the download attribute of the link to the desired file name
+        a.download = 'presentation.pptx';
+        // Append the link to the document body
+        document.body.appendChild(a);
+        // Click the link to trigger the download
+        a.click();
+        // Remove the link from the document body
+        document.body.removeChild(a);
+        // Revoke the URL to release the object URL
+        window.URL.revokeObjectURL(url);
+    })
+    .catch(error => {
+        console.error('There was a problem with the fetch operation:', error);
+    });
+
+}
+
+};
+
+
+
+</script>
+</body>
+</html>

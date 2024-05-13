@@ -1,0 +1,12 @@
+psycopg2-binary
+boto3
+pgvector
+Werkzeug
+Flask-Minify
+SQLAlchemy
+python-pptx
+python-dotenv
+pandas
+flask
+Jinja2
+gunicorn

@@ -1,0 +1,157 @@
+  .button {
+    background-color: #333;
+    color: white;
+    padding: 4px 8px;
+    margin: 2px 8px;
+    border: none;
+    font-size: 12px;
+    min-width: 200px;
+    min-height: 30px;
+    cursor: pointer;
+    width: fit-content;
+    vertical-align: bottom; /* Adjust based on your preference */
+  }
+  .button:hover {
+    background-color: #555;
+  }
+  .upload-btn-wrapper {
+    position: relative;
+    overflow: hidden;
+
+  }
+
+.output{
+  margin-left:40px;
+}
+
+
+.table-styled {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 90%;
+}
+
+.table-styled td, .table-styled th {
+  border: 1px solid #ddd;
+}
+
+.table-styled tr:nth-child(even){background-color: #f2f2f2;}
+
+.table-styled tr:hover {background-color: #ddd;}
+
+.table-styled th {
+  padding-top: 2px;
+  padding-bottom: 2px;
+  text-align: left;
+  background-color: #DDDDDD;
+  color: black;
+}
+
+  .lbuttons {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+
+    flex-direction: row;
+    align-items: center;
+    bottom: 0;
+    height: 7%;
+    padding-top: 2px;
+    left: 0;
+    width: 50%;
+    background-color: #fff; /* Adjust the background as needed */
+/*    box-shadow: 0px -2px 5px rgba(0,0,0,0.3); /* Optional: adds shadow for better visibility */*/
+    z-index: 1000; /* Ensures the div stays above other content */
+}
+
+.slide{
+      position: relative;
+    width: inherit;
+
+    height: 60%;
+    margin-bottom: 20px;
+    margin-left: 20px;
+    border: 2px solid #0000006b;
+
+    background-size: cover;
+}
+
+
+
+  .rbuttons {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    bottom: 0;
+    padding-top: 2px;
+    left: 50%;
+    height: 7%;
+    width: 50%;
+    background-color: #fff; /* Adjust the background as needed */
+/*    box-shadow: 0px -2px 5px rgba(0,0,0,0.3); /* Optional: adds shadow for better visibility */*/
+    z-index: 1000; /* Ensures the div stays above other content */
+}
+
+
+  .btn {
+    border: 2px solid gray;
+    color: white;
+    background-color: #333;
+    padding: 8px 20px;
+    border-radius: 8px;
+    font-size: 20px;
+    font-weight: bold;
+  }
+  .upload-btn-wrapper input[type=file] {
+    font-size: 12px;
+    position: absolute;
+    left: 0;
+    margin-left : 5px;
+    top: 0;
+    opacity: 0;
+  }
+  .container {
+            display: flex;
+            height: 100vh;
+        }
+        .left, .right {
+            flex: 1;
+            
+            
+        }
+        .left{
+            width: 50%;
+              overflow-y: scroll;
+        }
+        .right{
+          overflow-x: hidden;
+        }
+        .output{
+                touch-action: none;
+    box-sizing:border-box;
+    transform: scale(0.8) translateZ(0) translateY(0);
+    transform-origin: left top;
+
+        }
+
+body{
+  margin: 0px;
+}
+
+.close-button {
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    cursor: pointer;
+    background-color: #dc3545;
+    color: white;
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 10px;
+}
