@@ -337,7 +337,7 @@ def upload_file():
         # Invoke processing via Cloud Function or Cloud Run (need to implement `invoke_cloud_function`)
         payload_json = {
               "input_bucket": "userstemplates",
-              "input_path": "template.pptx",
+              "input_path": filename,
               "output_bucket": "userstemplates",
               "output_path": "images/",
               "convert_to": "pdf",
