@@ -320,7 +320,7 @@ def upload_file():
         # Save the file to the temporary directory
         filename = secure_filename(file.filename)
 
-        temp_file_path = os.path.join(TEMPDIR, filename)
+        temp_file_path = os.path.join(temp_dir, filename)
         file.save(temp_file_path)
 
         # Upload file to Google Cloud Storage
