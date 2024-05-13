@@ -10,3 +10,6 @@ pandas
 flask
 Jinja2
 gunicorn
+google-cloud
+google-cloud-pubsub
+google-cloud-storage

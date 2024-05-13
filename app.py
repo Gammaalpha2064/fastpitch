@@ -321,7 +321,7 @@ def upload_file():
         file.save(temp_file_path)
 
         # Upload file to Google Cloud Storage
-        blob = bucket.blob('template.pptx')
+        blob = bucket.blob(file.filename)
         blob.upload_from_filename(temp_file_path)
         process_result = process_ppts(temp_file_path,temp_dir)
 
