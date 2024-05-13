@@ -139,7 +139,7 @@ def hello():
                     FROM public.answers
                     WHERE username = 'user1'; """)
     res2=cur.fetchone()
-    print(res[0],res2[0])
+    # print(res[0],res2[0])
 
     if session.get('msg', None):
         msg=session.get('msg')
@@ -331,7 +331,7 @@ def upload_file():
         blob = bucket.blob(file.filename)
         blob.upload_from_filename(temp_file_path)
         # print("Temp dir",session['temp_dir'])
-        print(os.listdir(temp_dir))
+        # print(os.listdir(temp_dir))
         process_result = process_ppts(temp_file_path,temp_dir)
 
         # Cleanup local temporary file
@@ -379,7 +379,7 @@ def process_file(file, username):
             # Publish message to the Pub/Sub topic
             topic_path = pubsub_publisher.topic_path(project_id, topic_id)
             future=pubsub_publisher.publish(topic_path, data)
-            print(future.result())
+            # print(future.result())
             # Clean up the temporary file
             os.unlink(temp_file.name)
         except Exception as e:
@@ -398,6 +398,7 @@ def upload_bulk_files():
     cur=conn.cursor()
     cur.execute("TRUNCATE table embeddings")
     cur.execute("TRUNCATE table widgets")
+    cur.execute("TRUNCATE answers")
     conn.commit()
     conn.close()
 
